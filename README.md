@@ -2,4 +2,4 @@
 Repository for the AnimalHaze3k dataset
 
 Dataset Structure:
-[embedmd]:# (structure.txt)
+[embedmd]:# (structure.txt plaintext)
