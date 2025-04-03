@@ -1,9 +1,5 @@
-# Updated .github/workflows/embedmd.yml
 name: Dataset Structure Documentation
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   generate-structure:
@@ -11,17 +7,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create directory structure
+      - name: Create directory skeleton
         run: |
           mkdir -p AnimalHaze3k/{train/{train_hazy,train_clean},test/{test_clean,test_hazy},val/{val_clean,val_hazy}}
-          
+          touch AnimalHaze3k/{train,test,val}/*/.gitkeep  # Force directory creation
+
       - name: Generate structure file
         run: |
-          tree -d --noreport --noleaf AnimalHaze3k > structure.txt
-          
+          tree -d --noreport -L 3 AnimalHaze3k > structure.txt
+          sed -i 's/└/├/g; s/│/|/g' structure.txt  # ASCII compatibility
+
       - name: Commit structure
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: Update dataset structure"
+          commit_message: "docs: Update directory structure"
           file_pattern: |
             structure.txt
