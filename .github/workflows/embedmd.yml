@@ -1,38 +1,27 @@
-# .github/workflows/embedmd.yml
-name: Auto-Embed Directory Structure
+# Updated .github/workflows/embedmd.yml
+name: Dataset Structure Documentation
 on:
   push:
     branches: [ main ]
-  pull_request:
+  workflow_dispatch:
 
 jobs:
-  embed-structure:
+  generate-structure:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.21'
-
-      - name: Install embedmd
-        run: go install github.com/campoy/embedmd@latest
-
-      - name: Generate directory structure
+      - name: Create directory structure
         run: |
-          tree -d --noreport AnimalHaze3k > structure.txt
+          mkdir -p AnimalHaze3k/{train/{train_hazy,train_clean},test/{test_clean,test_hazy},val/{val_clean,val_hazy}}
           
-      - name: Process README
-        run: embedmd -w README.md
-
-      - name: Commit changes
+      - name: Generate structure file
+        run: |
+          tree -d --noreport --noleaf AnimalHaze3k > structure.txt
+          
+      - name: Commit structure
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: Auto-update directory structure"
+          commit_message: "docs: Update dataset structure"
           file_pattern: |
-            README.md
             structure.txt
