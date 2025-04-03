@@ -5,7 +5,8 @@ AnimalHaze3k is an image dehazing dataset focused on animal subjects in diverse 
 * Test set: 59 clean images with 177 corresponding hazy versions<br/>
 * Validation set: 59 clean images with 177 corresponding hazy versions
 <br/>
-Dataset can be downloaded at: https://huggingface.co/datasets/shvrth/AnimalHaze3k/resolve/main/AnimalHaze3K.tar
+Hugging face dataset link: https://huggingface.co/datasets/shvrth/AnimalHaze3k <br/>
+Dataset can be downloaded by clicking of the link: https://huggingface.co/datasets/shvrth/AnimalHaze3k/resolve/main/AnimalHaze3K.tar
 
 ### Dataset Structure:
 > ```
